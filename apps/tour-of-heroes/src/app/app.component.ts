@@ -1,11 +1,13 @@
 import { Component, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { HeroesComponent } from '@toh/ui';
 
 @Component({
-  imports: [RouterModule],
+  imports: [RouterModule, HeroesComponent],
   selector: 'app-root',
   template: `
     <h1>Angular Tour of Heroes</h1>
+    <toh-heroes />
     <router-outlet></router-outlet>
   `,
   styleUrl: './app.component.css',
