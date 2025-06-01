@@ -8,16 +8,12 @@
   "targets": {
     "build": {
       "executor": "@angular/build:application",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/tour-of-heroes",
         "index": "apps/tour-of-heroes/src/index.html",
         "browser": "apps/tour-of-heroes/src/main.ts",
-        "polyfills": [
-          "zone.js"
-        ],
+        "polyfills": [],
         "tsConfig": "apps/tour-of-heroes/tsconfig.app.json",
         "assets": [
           {
@@ -25,9 +21,7 @@
             "input": "apps/tour-of-heroes/public"
           }
         ],
-        "styles": [
-          "apps/tour-of-heroes/src/styles.css"
-        ],
+        "styles": ["apps/tour-of-heroes/src/styles.css"],
         "scripts": [],
         "server": "apps/tour-of-heroes/src/main.server.ts",
         "ssr": {
@@ -83,9 +77,7 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": [
-        "{workspaceRoot}/coverage/{projectRoot}"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "apps/tour-of-heroes/jest.config.ts"
       }
