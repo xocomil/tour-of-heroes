@@ -44,6 +44,9 @@ importers:
       express:
         specifier: ^4.21.2
         version: 4.21.2
+      mutative:
+        specifier: ^1.2.0
+        version: 1.2.0
       rxjs:
         specifier: ~7.8.2
         version: 7.8.2
@@ -5765,6 +5768,10 @@ packages:
   multicast-dns@7.2.5:
     resolution: {integrity: sha512-2eznPJP8z2BFLX50tf0LuODrpINqP1RVIm/CObbTcBRITQgmC/TjcREF1NeTBzIcR5XO/ukWo+YHOjBbFwIupg==}
     hasBin: true
+
+  mutative@1.2.0:
+    resolution: {integrity: sha512-1muFw45Lwjso6TSBGiXfbjKS01fVSD/qaqBfTo/gXgp79e8KM4Sa1XP/S4iN2/DvSdIZgjFJI+JIhC7eKf3GTg==}
+    engines: {node: '>=14.0'}
 
   mute-stream@1.0.0:
     resolution: {integrity: sha512-avsJQhyd+680gKXyG/sQc0nXaC6rBkPOfyHYcFb9+hdkqQkR9bdnkJ0AMZhke0oesPqIO+mFFJ+IdBc7mst4IA==}
@@ -14434,6 +14441,8 @@ snapshots:
     dependencies:
       dns-packet: 5.6.1
       thunky: 1.1.0
+
+  mutative@1.2.0: {}
 
   mute-stream@1.0.0: {}
 
