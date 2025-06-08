@@ -51,8 +51,8 @@
     "@types/express": "^4.17.21",
     "@types/jest": "^29.5.14",
     "@types/node": "22.15.29",
-    "@typescript-eslint/utils": "^8.33.0",
-    "angular-eslint": "^19.6.0",
+    "@typescript-eslint/utils": "^8.33.1",
+    "angular-eslint": "20.0.0",
     "autoprefixer": "^10.4.21",
     "daisyui": "^5.0.43",
     "eslint": "^9.28.0",
@@ -71,7 +71,7 @@
     "ts-node": "10.9.2",
     "tslib": "^2.8.1",
     "typescript": "~5.8.3",
-    "typescript-eslint": "^8.33.0"
+    "typescript-eslint": "^8.33.1"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
