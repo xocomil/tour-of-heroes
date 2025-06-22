@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { HeroesStore } from '../stores/heroes.store';
+import { injectDispatch } from '@ngrx/signals/events';
+import { heroesStateEvents, HeroesStore } from '../stores/heroes.store';
 
 @Component({
   selector: 'toh-heroes',
@@ -31,12 +32,13 @@ import { HeroesStore } from '../stores/heroes.store';
   providers: [HeroesStore],
 })
 export class HeroesComponent {
+  readonly #dispatcher = injectDispatch(heroesStateEvents);
   protected readonly heroStore = inject(HeroesStore);
 
   protected updateHeroName($event: Event): void {
     const value = getValueProp($event.target);
 
-    this.heroStore.updateHeroName(value);
+    this.#dispatcher.heroNameChanged(value);
   }
 }
 
