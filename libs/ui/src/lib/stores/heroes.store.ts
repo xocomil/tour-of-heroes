@@ -1,12 +1,16 @@
+import { computed } from '@angular/core';
 import {
   PartialStateUpdater,
+  patchState,
   signalStore,
   type,
+  withComputed,
+  withMethods,
   withState,
 } from '@ngrx/signals';
-import { eventGroup, on, withReducer } from '@ngrx/signals/events';
+import { eventGroup } from '@ngrx/signals/events';
 import { create } from 'mutative';
-import { Hero } from '../models/hero.model';
+import { Hero, mockHeroes } from '../models/hero.model';
 import { createHeroesView } from '../models/heroes-view.model';
 
 export const heroesStateEvents = eventGroup({
@@ -17,12 +21,24 @@ export const heroesStateEvents = eventGroup({
 });
 
 export const HeroesStore = signalStore(
-  withState(() => createHeroesView({ hero: { id: 1, name: 'Windstorm' } })),
-  withReducer(
-    on(heroesStateEvents.heroNameChanged, ({ payload: heroName }) =>
-      updateHeroName(heroName),
-    ),
-  ),
+  withState(() => createHeroesView({ heroes: mockHeroes() })),
+  withMethods((state) => ({
+    selectHero(id: number) {
+      patchState(state, { selectedHeroId: id });
+    },
+  })),
+  withComputed((state) => ({
+    selectedHero: computed(() => {
+      const selectedId = state.selectedHeroId();
+
+      return state.heroes().find((hero) => hero.id === selectedId);
+    }),
+  })),
+  // withReducer(
+  //   on(heroesStateEvents.heroNameChanged, ({ payload: heroName }) =>
+  //     updateHeroName(heroName),
+  //   ),
+  // ),
 );
 
 function updateHeroName(
