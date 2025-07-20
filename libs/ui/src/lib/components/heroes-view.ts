@@ -1,29 +1,30 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { injectDispatch } from '@ngrx/signals/events';
-import { heroesStateEvents, HeroesStore } from '../stores/heroes.store';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { HeroesStore } from '../stores/heroes.store';
+import { HeroDetailComponent } from './hero-detail.component';
+import { HeroesListComponent } from './heroes-list.component';
 
 @Component({
   selector: 'toh-heroes',
-  imports: [CommonModule],
+  imports: [CommonModule, HeroDetailComponent, HeroesListComponent],
   template: `
-    <div class="card card-sm shadow-sm bg-neutral not-prose">
-      <div class="card-body">
-        @let hero = heroStore.hero();
-        <h2 class="card-title">{{ hero.name | uppercase }} Details</h2>
-        <p><span>id: </span>{{ hero.id }}</p>
-        <div>
-          <label for="heroName">name: </label
-          ><input
-            class="input"
-            id="heroName"
-            [value]="hero.name"
-            (input)="updateHeroName($event)"
-            placeholder="Hero's Name"
-          />
+    <div
+      class="card card-sm shadow-sm bg-neutral not-prose max-h-(--card-height)"
+    >
+      <div class="card-body flex-row overflow-hidden max-h-full">
+        <div class="overflow-y-scroll max-h-full">
+          <toh-heroes-list />
+        </div>
+        <div class="max-h-full prose">
+          <toh-hero-detail />
         </div>
       </div>
     </div>
+  `,
+  styles: `
+    :host {
+      --card-height: calc(100vh - 8rem);
+    }
   `,
   host: {
     class: 'block',
@@ -31,21 +32,4 @@ import { heroesStateEvents, HeroesStore } from '../stores/heroes.store';
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [HeroesStore],
 })
-export class HeroesComponent {
-  readonly #dispatcher = injectDispatch(heroesStateEvents);
-  protected readonly heroStore = inject(HeroesStore);
-
-  protected updateHeroName($event: Event): void {
-    const value = getValueProp($event.target);
-
-    this.#dispatcher.heroNameChanged(value);
-  }
-}
-
-function hasValueProp(target: unknown): target is { value: string } {
-  return !!target && target instanceof Object && 'value' in target;
-}
-
-function getValueProp(target: unknown): string | undefined {
-  return hasValueProp(target) ? target.value : undefined;
-}
+export class HeroesComponent {}

@@ -1,12 +1,16 @@
+import { withImmutableState } from '@angular-architects/ngrx-toolkit';
+import { computed } from '@angular/core';
 import {
   PartialStateUpdater,
+  patchState,
   signalStore,
   type,
-  withState,
+  withComputed,
+  withMethods,
 } from '@ngrx/signals';
-import { eventGroup, on, withReducer } from '@ngrx/signals/events';
+import { eventGroup } from '@ngrx/signals/events';
 import { create } from 'mutative';
-import { Hero } from '../models/hero.model';
+import { Hero, mockHeroes } from '../models/hero.model';
 import { createHeroesView } from '../models/heroes-view.model';
 
 export const heroesStateEvents = eventGroup({
@@ -17,21 +21,47 @@ export const heroesStateEvents = eventGroup({
 });
 
 export const HeroesStore = signalStore(
-  withState(() => createHeroesView({ hero: { id: 1, name: 'Windstorm' } })),
-  withReducer(
-    on(heroesStateEvents.heroNameChanged, ({ payload: heroName }) =>
-      updateHeroName(heroName),
-    ),
-  ),
+  withImmutableState(createHeroesView({ heroes: mockHeroes() })),
+  withMethods((state) => ({
+    selectHero(id: number) {
+      patchState(state, { selectedHeroId: id });
+    },
+    updateHeroName(heroId: number, name: string | undefined) {
+      patchState(state, updateHeroName(name, heroId, state.heroes()));
+    },
+  })),
+  withComputed((state) => ({
+    selectedHero: computed(() => {
+      const selectedId = state.selectedHeroId();
+
+      return state.heroes().find((hero) => hero.id === selectedId);
+    }),
+  })),
+  // withReducer(
+  //   on(heroesStateEvents.heroNameChanged, ({ payload: heroName }) =>
+  //     updateHeroName(heroName),
+  //   ),
+  // ),
 );
 
 function updateHeroName(
   heroName: string | undefined,
-): PartialStateUpdater<{ hero: Hero }> {
-  const name = heroName?.trim() ?? '';
+  heroId: number,
+  heroes: Hero[],
+): PartialStateUpdater<{ heroes: Hero[] }> {
+  return (state) => {
+    if (!heroName || !heroId) {
+      return { heroes };
+    }
 
-  return (state) =>
-    create(state, (draft) => {
-      draft.hero.name = name;
+    const currentHero = heroes.findIndex((hero) => hero.id === heroId);
+
+    if (currentHero === -1) {
+      return { heroes };
+    }
+
+    return create(state, (draft) => {
+      draft.heroes[currentHero].name = heroName;
     });
+  };
 }

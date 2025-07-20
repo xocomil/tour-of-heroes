@@ -1,13 +1,15 @@
-import { createHero, Hero } from './hero.model';
+import { Hero } from './hero.model';
 
 export type HeroesView = {
-  hero: Hero;
+  heroes: Hero[];
+  selectedHeroId: number | undefined;
 };
 
 export function createHeroesView(
   options: Partial<HeroesView> = {},
 ): HeroesView {
   return {
-    hero: createHero(options.hero),
+    heroes: options.heroes ?? [],
+    selectedHeroId: options.selectedHeroId ?? undefined,
   };
 }

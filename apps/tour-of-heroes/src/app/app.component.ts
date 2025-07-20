@@ -8,7 +8,7 @@ import { HeroesComponent } from '@toh/ui';
   template: `
     <h1>Angular Tour of Heroes</h1>
     <toh-heroes />
-    <router-outlet></router-outlet>
+    <router-outlet />
   `,
   styleUrl: './app.component.css',
   host: {
