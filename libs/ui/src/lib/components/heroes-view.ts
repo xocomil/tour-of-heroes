@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { HeroesStore } from '../stores/heroes.store';
+import { HeroDetailComponent } from './hero-detail.component';
 
 @Component({
   selector: 'toh-heroes',
-  imports: [CommonModule],
+  imports: [CommonModule, HeroDetailComponent],
   template: `
     <div
       class="card card-sm shadow-sm bg-neutral not-prose max-h-(--card-height)"
@@ -27,8 +28,8 @@ import { HeroesStore } from '../stores/heroes.store';
             ><br />
           }
         </div>
-        <div class="max-h-full">
-          <pre>{{ heroStore.selectedHero() | json }}</pre>
+        <div class="max-h-full prose">
+          <toh-hero-detail />
         </div>
       </div>
     </div>
@@ -47,21 +48,9 @@ import { HeroesStore } from '../stores/heroes.store';
 export class HeroesComponent {
   protected readonly heroStore = inject(HeroesStore);
 
-  protected updateHeroName($event: Event): void {
-    const value = getValueProp($event.target);
-  }
-
   protected selectHero(id: number) {
     console.log('hero selected', id);
 
     this.heroStore.selectHero(id);
   }
-}
-
-function hasValueProp(target: unknown): target is { value: string } {
-  return !!target && target instanceof Object && 'value' in target;
-}
-
-function getValueProp(target: unknown): string | undefined {
-  return hasValueProp(target) ? target.value : undefined;
 }

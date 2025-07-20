@@ -1,3 +1,4 @@
+import { withImmutableState } from '@angular-architects/ngrx-toolkit';
 import { computed } from '@angular/core';
 import {
   PartialStateUpdater,
@@ -6,7 +7,6 @@ import {
   type,
   withComputed,
   withMethods,
-  withState,
 } from '@ngrx/signals';
 import { eventGroup } from '@ngrx/signals/events';
 import { create } from 'mutative';
@@ -21,10 +21,13 @@ export const heroesStateEvents = eventGroup({
 });
 
 export const HeroesStore = signalStore(
-  withState(() => createHeroesView({ heroes: mockHeroes() })),
+  withImmutableState(createHeroesView({ heroes: mockHeroes() })),
   withMethods((state) => ({
     selectHero(id: number) {
       patchState(state, { selectedHeroId: id });
+    },
+    updateHeroName(heroId: number, name: string | undefined) {
+      patchState(state, updateHeroName(name, heroId, state.heroes()));
     },
   })),
   withComputed((state) => ({
@@ -43,11 +46,22 @@ export const HeroesStore = signalStore(
 
 function updateHeroName(
   heroName: string | undefined,
-): PartialStateUpdater<{ hero: Hero }> {
-  const name = heroName?.trim() ?? '';
+  heroId: number,
+  heroes: Hero[],
+): PartialStateUpdater<{ heroes: Hero[] }> {
+  return (state) => {
+    if (!heroName || !heroId) {
+      return { heroes };
+    }
 
-  return (state) =>
-    create(state, (draft) => {
-      draft.hero.name = name;
+    const currentHero = heroes.findIndex((hero) => hero.id === heroId);
+
+    if (currentHero === -1) {
+      return { heroes };
+    }
+
+    return create(state, (draft) => {
+      draft.heroes[currentHero].name = heroName;
     });
+  };
 }
