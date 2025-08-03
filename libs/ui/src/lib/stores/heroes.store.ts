@@ -50,7 +50,9 @@ function updateHeroName(
   heroes: Hero[],
 ): PartialStateUpdater<{ heroes: Hero[] }> {
   return (state) => {
-    if (!heroName || !heroId) {
+    // TODO: add tests that check for nullish and ''
+    // '' string should change, nullish values shouldn't
+    if (heroName == undefined || !heroId) {
       return { heroes };
     }
 
