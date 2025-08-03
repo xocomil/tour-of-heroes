@@ -6,6 +6,7 @@
   "private": true,
   "dependencies": {
     "@angular-architects/ngrx-toolkit": "^19.1.0",
+    "@angular/cdk": "^19.0.0",
     "@angular/common": "20.1.4",
     "@angular/compiler": "20.1.4",
     "@angular/core": "20.1.4",
@@ -15,6 +16,7 @@
     "@angular/platform-server": "20.1.4",
     "@angular/router": "20.1.4",
     "@angular/ssr": "20.1.4",
+    "@floating-ui/dom": "^1.6.0",
     "@ngrx/operators": "^20.0.0",
     "@ngrx/signals": "^20.0.0",
     "express": "^4.21.2",
@@ -64,6 +66,7 @@
     "jest-environment-jsdom": "30.0.5",
     "jest-preset-angular": "15.0.0",
     "jest-util": "30.0.5",
+    "ng-primitives": "^0.69.1",
     "nx": "21.3.11",
     "postcss": "^8.5.6",
     "prettier": "^3.6.2",
