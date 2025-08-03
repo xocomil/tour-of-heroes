@@ -1,13 +1,16 @@
 import { Component, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { HeroesComponent } from '@toh/ui';
+import { MessageStore } from '@toh/state';
+import { HeroesComponent, MessageComponent } from '@toh/ui';
 
 @Component({
-  imports: [RouterModule, HeroesComponent],
+  imports: [RouterModule, HeroesComponent, MessageComponent],
   selector: 'app-root',
+  providers: [MessageStore],
   template: `
     <h1>Angular Tour of Heroes</h1>
     <toh-heroes />
+    <toh-message />
     <router-outlet />
   `,
   styleUrl: './app.component.css',

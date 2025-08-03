@@ -1,14 +1,16 @@
 import { withImmutableState } from '@angular-architects/ngrx-toolkit';
-import { computed } from '@angular/core';
+import { computed, inject } from '@angular/core';
 import {
   PartialStateUpdater,
   patchState,
   signalStore,
   type,
   withComputed,
+  withHooks,
   withMethods,
 } from '@ngrx/signals';
 import { eventGroup } from '@ngrx/signals/events';
+import { createMessage, MessageStore } from '@toh/state';
 import { create } from 'mutative';
 import { Hero, mockHeroes } from '../models/hero.model';
 import { createHeroesView } from '../models/heroes-view.model';
@@ -20,23 +22,50 @@ export const heroesStateEvents = eventGroup({
   },
 });
 
+const StoreName = 'HeroesStore' as const;
+
 export const HeroesStore = signalStore(
   withImmutableState(createHeroesView({ heroes: mockHeroes() })),
-  withMethods((state) => ({
-    selectHero(id: number) {
-      patchState(state, { selectedHeroId: id });
-    },
-    updateHeroName(heroId: number, name: string | undefined) {
-      patchState(state, updateHeroName(name, heroId, state.heroes()));
-    },
-  })),
-  withComputed((state) => ({
-    selectedHero: computed(() => {
-      const selectedId = state.selectedHeroId();
+  withComputed((state) => {
+    return {
+      selectedHero: computed(() => {
+        const selectedId = state.selectedHeroId();
 
-      return state.heroes().find((hero) => hero.id === selectedId);
-    }),
-  })),
+        return state.heroes().find((hero) => hero.id === selectedId);
+      }),
+    };
+  }),
+  withMethods((state) => {
+    const messageStore = inject(MessageStore);
+
+    return {
+      selectHero(id: number) {
+        patchState(state, { selectedHeroId: id });
+      },
+      updateHeroName(heroId: number, name: string | undefined) {
+        patchState(state, updateHeroName(name, heroId, state.heroes()));
+
+        messageStore.add(
+          createMessage(
+            StoreName,
+            `Selected hero changed: ${state.selectedHero()?.name} (${heroId})`,
+          ),
+        );
+      },
+    };
+  }),
+  withHooks((state) => {
+    const messageStore = inject(MessageStore);
+
+    return {
+      onInit() {
+        messageStore.add(createMessage(StoreName, 'Store initialized.'));
+      },
+      onDestroy() {
+        messageStore.add(createMessage(StoreName, 'Store destroyed.'));
+      },
+    };
+  }),
   // withReducer(
   //   on(heroesStateEvents.heroNameChanged, ({ payload: heroName }) =>
   //     updateHeroName(heroName),

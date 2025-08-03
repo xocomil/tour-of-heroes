@@ -10,11 +10,12 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": ["es2020", "dom"],
+    "lib": ["es2022", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@toh/state": ["libs/state/src/index.ts"],
       "@toh/ui": ["libs/ui/src/index.ts"]
     }
   },
