@@ -8,15 +8,17 @@ import { MessageStore } from '@toh/state';
     @let messages = messageStore.prettyMessages();
 
     @if (messages.length) {
-      <h2 class="mt-0">Messages</h2>
-      <button class="clear" (click)="messageStore.clear()" type="button">
+      <h2 class="mt-0 mb-1 text-info">Messages</h2>
+      <button
+        class="clear"
+        class="btn btn-sm btn-warning"
+        (click)="messageStore.clear()"
+        type="button"
+      >
         Clear messages
       </button>
-      <div>
-        @for (message of messages; track message) {
-          {{ message }}
-        }
-      </div>
+      <pre>@for (message of messages; track $index) {{{ message }}
+}</pre>
     } @else {
       <h2 class="mt-0 mb-0">No messages</h2>
     }

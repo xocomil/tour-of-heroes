@@ -10,8 +10,10 @@ import {
   withMethods,
 } from '@ngrx/signals';
 import { eventGroup } from '@ngrx/signals/events';
+import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { createMessage, MessageStore } from '@toh/state';
 import { create } from 'mutative';
+import { debounceTime, pipe, tap } from 'rxjs';
 import { Hero, mockHeroes } from '../models/hero.model';
 import { createHeroesView } from '../models/heroes-view.model';
 
@@ -42,16 +44,21 @@ export const HeroesStore = signalStore(
       selectHero(id: number) {
         patchState(state, { selectedHeroId: id });
       },
-      updateHeroName(heroId: number, name: string | undefined) {
-        patchState(state, updateHeroName(name, heroId, state.heroes()));
+      updateHeroName: rxMethod<{ heroId: number; name: string | undefined }>(
+        pipe(
+          debounceTime(300),
+          tap(({ heroId, name }) => {
+            patchState(state, updateHeroName(name, heroId, state.heroes()));
 
-        messageStore.add(
-          createMessage(
-            StoreName,
-            `Selected hero changed: ${state.selectedHero()?.name} (${heroId})`,
-          ),
-        );
-      },
+            messageStore.add(
+              createMessage(
+                StoreName,
+                `Hero name changed: ${state.selectedHero()?.name} (${heroId})`,
+              ),
+            );
+          }),
+        ),
+      ),
     };
   }),
   withHooks((state) => {
