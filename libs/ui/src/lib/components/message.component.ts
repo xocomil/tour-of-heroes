@@ -17,8 +17,7 @@ import { MessageStore } from '@toh/state';
       >
         Clear messages
       </button>
-      <pre>@for (message of messages; track $index) {{{ message }}
-}</pre>
+      <pre>@for (message of messages; track $index) { {{ message }}\n}</pre>
     } @else {
       <h2 class="mt-0 mb-0">No messages</h2>
     }
