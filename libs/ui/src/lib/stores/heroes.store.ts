@@ -4,41 +4,46 @@ import {
   PartialStateUpdater,
   patchState,
   signalStore,
-  type,
   withComputed,
   withHooks,
   withMethods,
 } from '@ngrx/signals';
-import { eventGroup } from '@ngrx/signals/events';
+import { injectDispatch } from '@ngrx/signals/events';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
-import { createMessage, MessageStore } from '@toh/state';
+import { createMessage, messageStateEvents, MessageStore } from '@toh/state';
 import { create } from 'mutative';
 import { debounceTime, pipe, tap } from 'rxjs';
 import { Hero, mockHeroes } from '../models/hero.model';
 import { createHeroesView } from '../models/heroes-view.model';
-
-export const heroesStateEvents = eventGroup({
-  source: 'Heroes UI',
-  events: {
-    heroNameChanged: type<string | undefined>(),
-  },
-});
 
 const StoreName = 'HeroesStore' as const;
 
 export const HeroesStore = signalStore(
   withImmutableState(createHeroesView({ heroes: mockHeroes() })),
   withComputed((state) => {
+    const messageDispatcher = injectDispatch(messageStateEvents);
+
     return {
       selectedHero: computed(() => {
         const selectedId = state.selectedHeroId();
 
-        return state.heroes().find((hero) => hero.id === selectedId);
+        const hero = state.heroes().find((hero) => hero.id === selectedId);
+
+        if (hero) {
+          messageDispatcher.addMessage(
+            createMessage(
+              StoreName,
+              `Selected hero: ${hero.name} (${hero.id})`,
+            ),
+          );
+        }
+
+        return hero;
       }),
     };
   }),
   withMethods((state) => {
-    const messageStore = inject(MessageStore);
+    const messageDispatcher = injectDispatch(messageStateEvents);
 
     return {
       selectHero(id: number) {
@@ -50,7 +55,7 @@ export const HeroesStore = signalStore(
           tap(({ heroId, name }) => {
             patchState(state, updateHeroName(name, heroId, state.heroes()));
 
-            messageStore.add(
+            messageDispatcher.addMessage(
               createMessage(
                 StoreName,
                 `Hero name changed: ${state.selectedHero()?.name} (${heroId})`,
@@ -73,11 +78,6 @@ export const HeroesStore = signalStore(
       },
     };
   }),
-  // withReducer(
-  //   on(heroesStateEvents.heroNameChanged, ({ payload: heroName }) =>
-  //     updateHeroName(heroName),
-  //   ),
-  // ),
 );
 
 function updateHeroName(

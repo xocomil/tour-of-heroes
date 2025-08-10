@@ -4,9 +4,11 @@ import {
   PartialStateUpdater,
   patchState,
   signalStore,
+  type,
   withComputed,
   withMethods,
 } from '@ngrx/signals';
+import { eventGroup, on, withReducer } from '@ngrx/signals/events';
 import { create } from 'mutative';
 import { isMessage, Message } from '../models/message.model';
 
@@ -16,6 +18,13 @@ type MessageState = {
 
 const createDefaultState = (): MessageState => ({
   messages: [],
+});
+
+export const messageStateEvents = eventGroup({
+  source: 'Message Store',
+  events: {
+    addMessage: type<Message>(),
+  },
 });
 
 export const MessageStore = signalStore(
@@ -37,6 +46,11 @@ export const MessageStore = signalStore(
       patchState(state, { messages: [] });
     },
   })),
+  withReducer(
+    on(messageStateEvents.addMessage, ({ payload: message }, state) =>
+      updateMessages(state.messages, message),
+    ),
+  ),
 );
 
 function updateMessages(
