@@ -16,7 +16,7 @@
     "@angular/platform-server": "20.1.6",
     "@angular/router": "20.1.6",
     "@angular/ssr": "20.1.5",
-    "@floating-ui/dom": "^1.6.0",
+    "@floating-ui/dom": "^1.7.3",
     "@ngrx/operators": "^20.0.0",
     "@ngrx/signals": "^20.0.0",
     "express": "^4.21.2",
@@ -32,7 +32,7 @@
     "@angular/cli": "20.1.5",
     "@angular/compiler-cli": "20.1.6",
     "@angular/language-service": "20.1.6",
-    "@eslint/js": "^9.32.0",
+    "@eslint/js": "^9.33.0",
     "@ngrx/eslint-plugin": "20.0.0",
     "@ngrx/operators": "20.0.0",
     "@ngrx/signals": "20.0.0",
@@ -54,12 +54,12 @@
     "@tailwindcss/typography": "^0.5.16",
     "@types/express": "^5.0.3",
     "@types/jest": "30.0.0",
-    "@types/node": "24.1.0",
-    "@typescript-eslint/utils": "^8.38.0",
+    "@types/node": "24.2.1",
+    "@typescript-eslint/utils": "^8.39.0",
     "angular-eslint": "20.1.1",
     "autoprefixer": "^10.4.21",
     "daisyui": "^5.0.50",
-    "eslint": "^9.32.0",
+    "eslint": "^9.33.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-playwright": "^1.6.2",
     "jest": "30.0.5",
@@ -77,7 +77,7 @@
     "ts-node": "10.9.2",
     "tslib": "^2.8.1",
     "typescript": "~5.8.3",
-    "typescript-eslint": "^8.38.0"
+    "typescript-eslint": "^8.39.0"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
