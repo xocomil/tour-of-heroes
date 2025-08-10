@@ -1,47 +1,83 @@
 import { withImmutableState } from '@angular-architects/ngrx-toolkit';
-import { computed } from '@angular/core';
+import { computed, inject } from '@angular/core';
 import {
   PartialStateUpdater,
   patchState,
   signalStore,
-  type,
   withComputed,
+  withHooks,
   withMethods,
 } from '@ngrx/signals';
-import { eventGroup } from '@ngrx/signals/events';
+import { injectDispatch } from '@ngrx/signals/events';
+import { rxMethod } from '@ngrx/signals/rxjs-interop';
+import { createMessage, messageStateEvents, MessageStore } from '@toh/state';
 import { create } from 'mutative';
+import { debounceTime, pipe, tap } from 'rxjs';
 import { Hero, mockHeroes } from '../models/hero.model';
 import { createHeroesView } from '../models/heroes-view.model';
 
-export const heroesStateEvents = eventGroup({
-  source: 'Heroes UI',
-  events: {
-    heroNameChanged: type<string | undefined>(),
-  },
-});
+const StoreName = 'HeroesStore' as const;
 
 export const HeroesStore = signalStore(
   withImmutableState(createHeroesView({ heroes: mockHeroes() })),
-  withMethods((state) => ({
-    selectHero(id: number) {
-      patchState(state, { selectedHeroId: id });
-    },
-    updateHeroName(heroId: number, name: string | undefined) {
-      patchState(state, updateHeroName(name, heroId, state.heroes()));
-    },
-  })),
-  withComputed((state) => ({
-    selectedHero: computed(() => {
-      const selectedId = state.selectedHeroId();
+  withComputed((state) => {
+    const messageDispatcher = injectDispatch(messageStateEvents);
 
-      return state.heroes().find((hero) => hero.id === selectedId);
-    }),
-  })),
-  // withReducer(
-  //   on(heroesStateEvents.heroNameChanged, ({ payload: heroName }) =>
-  //     updateHeroName(heroName),
-  //   ),
-  // ),
+    return {
+      selectedHero: computed(() => {
+        const selectedId = state.selectedHeroId();
+
+        const hero = state.heroes().find((hero) => hero.id === selectedId);
+
+        if (hero) {
+          messageDispatcher.addMessage(
+            createMessage(
+              StoreName,
+              `Selected hero: ${hero.name} (${hero.id})`,
+            ),
+          );
+        }
+
+        return hero;
+      }),
+    };
+  }),
+  withMethods((state) => {
+    const messageDispatcher = injectDispatch(messageStateEvents);
+
+    return {
+      selectHero(id: number) {
+        patchState(state, { selectedHeroId: id });
+      },
+      updateHeroName: rxMethod<{ heroId: number; name: string | undefined }>(
+        pipe(
+          debounceTime(300),
+          tap(({ heroId, name }) => {
+            patchState(state, updateHeroName(name, heroId, state.heroes()));
+
+            messageDispatcher.addMessage(
+              createMessage(
+                StoreName,
+                `Hero name changed: ${state.selectedHero()?.name} (${heroId})`,
+              ),
+            );
+          }),
+        ),
+      ),
+    };
+  }),
+  withHooks((state) => {
+    const messageStore = inject(MessageStore);
+
+    return {
+      onInit() {
+        messageStore.add(createMessage(StoreName, 'Store initialized.'));
+      },
+      onDestroy() {
+        messageStore.add(createMessage(StoreName, 'Store destroyed.'));
+      },
+    };
+  }),
 );
 
 function updateHeroName(
@@ -50,7 +86,9 @@ function updateHeroName(
   heroes: Hero[],
 ): PartialStateUpdater<{ heroes: Hero[] }> {
   return (state) => {
-    if (!heroName || !heroId) {
+    // TODO: add tests that check for nullish and ''
+    // '' string should change, nullish values shouldn't
+    if (heroName == undefined || !heroId) {
       return { heroes };
     }
 

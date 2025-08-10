@@ -35,9 +35,9 @@ export class HeroDetailComponent {
   protected readonly heroesStore = inject(HeroesStore);
 
   protected updateHeroName($event: Event, heroId: number): void {
-    const value = getValueProp($event.target);
+    const name = getValueProp($event.target);
 
-    this.heroesStore.updateHeroName(heroId, value);
+    this.heroesStore.updateHeroName({ heroId, name });
   }
 }
 
