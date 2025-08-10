@@ -1,15 +1,14 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MessageStore } from '@toh/state';
 
 @Component({
   selector: 'toh-message',
-  imports: [CommonModule],
+  imports: [],
   template: `
     @let messages = messageStore.prettyMessages();
 
     @if (messages.length) {
-      <h2>Messages</h2>
+      <h2 class="mt-0">Messages</h2>
       <button class="clear" (click)="messageStore.clear()" type="button">
         Clear messages
       </button>
@@ -19,7 +18,7 @@ import { MessageStore } from '@toh/state';
         }
       </div>
     } @else {
-      <h2>No messages</h2>
+      <h2 class="mt-0 mb-0">No messages</h2>
     }
   `,
   styles: ``,

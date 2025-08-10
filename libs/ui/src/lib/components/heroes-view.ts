@@ -9,7 +9,7 @@ import { HeroesListComponent } from './heroes-list.component';
   imports: [CommonModule, HeroDetailComponent, HeroesListComponent],
   template: `
     <div
-      class="card card-sm shadow-sm bg-neutral not-prose max-h-(--card-height)"
+      class="card card-sm shadow-sm bg-neutral not-prose max-h-(--card-height) min-h-48"
     >
       <div class="card-body flex-row overflow-hidden max-h-full">
         <div class="overflow-y-scroll max-h-full">
@@ -23,7 +23,7 @@ import { HeroesListComponent } from './heroes-list.component';
   `,
   styles: `
     :host {
-      --card-height: calc(100vh - 8rem);
+      --card-height: calc(100vh - 16rem);
     }
   `,
   host: {

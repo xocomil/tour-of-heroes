@@ -8,7 +8,7 @@ import { HeroesComponent, MessageComponent } from '@toh/ui';
   selector: 'app-root',
   providers: [MessageStore],
   template: `
-    <h1>Angular Tour of Heroes</h1>
+    <h1 class="mb-0 mx-auto">Angular Tour of Heroes</h1>
     <toh-heroes />
     <toh-message />
     <router-outlet />
@@ -20,6 +20,6 @@ import { HeroesComponent, MessageComponent } from '@toh/ui';
 })
 export class AppComponent {
   protected hostTailwindClasses = signal(
-    'prose lg:prose-xl block mx-auto max-w-9/10 p-4 w-9/10',
+    'prose lg:prose-xl mx-auto max-w-9/10 p-4 w-9/10 flex flex-col gap-2 h-full max-h-screen',
   );
 }
