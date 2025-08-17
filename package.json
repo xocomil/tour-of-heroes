@@ -61,7 +61,7 @@
     "daisyui": "^5.0.50",
     "eslint": "^9.33.0",
     "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-playwright": "^1.6.2",
+    "eslint-plugin-playwright": "^2.0.0",
     "jest": "30.0.5",
     "jest-environment-jsdom": "30.0.5",
     "jest-preset-angular": "15.0.0",
