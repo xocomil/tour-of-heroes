@@ -181,8 +181,8 @@ importers:
         specifier: 30.0.5
         version: 30.0.5
       ng-primitives:
-        specifier: 0.71.0
-        version: 0.71.0(@angular/cdk@20.1.6(@angular/common@20.1.7(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/common@20.1.7(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(@angular/forms@20.1.7(@angular/common@20.1.7(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(@angular/platform-browser@20.1.7(@angular/common@20.1.7(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1)))(rxjs@7.8.2))(@floating-ui/dom@1.7.3)(rxjs@7.8.2)(typescript@5.8.3)
+        specifier: 0.73.1
+        version: 0.73.1(@angular/cdk@20.1.6(@angular/common@20.1.7(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/common@20.1.7(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(@angular/forms@20.1.7(@angular/common@20.1.7(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(@angular/platform-browser@20.1.7(@angular/common@20.1.7(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1)))(rxjs@7.8.2))(@floating-ui/dom@1.7.3)(rxjs@7.8.2)(typescript@5.8.3)
       nx:
         specifier: 21.4.0
         version: 21.4.0(@swc-node/register@1.11.1(@swc/core@1.13.3(@swc/helpers@0.5.17))(@swc/types@0.1.23)(typescript@5.8.3))(@swc/core@1.13.3(@swc/helpers@0.5.17))
@@ -5896,8 +5896,8 @@ packages:
   neo-async@2.6.2:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
 
-  ng-primitives@0.71.0:
-    resolution: {integrity: sha512-bSMstP3r57NXENLvxhQeyCYk1p3Zo7yTyBBsGaL9zU+Aj/ulttAOkaUv+rSvJDbZu3dfC6qN4xno1JOrjhD4zg==}
+  ng-primitives@0.73.1:
+    resolution: {integrity: sha512-bvzciWgYkgY+buREa6lJ4ys8ZrCweFJJ+nZVlM+BTBQuqXx+oBsrrFrTwN4NWUdvpSi0qDuKWo+5en7atdk75g==}
     peerDependencies:
       '@angular/cdk': '>=19.0.0'
       '@angular/common': '>=19.0.0'
@@ -15201,7 +15201,7 @@ snapshots:
 
   neo-async@2.6.2: {}
 
-  ng-primitives@0.71.0(@angular/cdk@20.1.6(@angular/common@20.1.7(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/common@20.1.7(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(@angular/forms@20.1.7(@angular/common@20.1.7(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(@angular/platform-browser@20.1.7(@angular/common@20.1.7(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1)))(rxjs@7.8.2))(@floating-ui/dom@1.7.3)(rxjs@7.8.2)(typescript@5.8.3):
+  ng-primitives@0.73.1(@angular/cdk@20.1.6(@angular/common@20.1.7(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/common@20.1.7(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(@angular/forms@20.1.7(@angular/common@20.1.7(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(@angular/platform-browser@20.1.7(@angular/common@20.1.7(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1)))(rxjs@7.8.2))(@floating-ui/dom@1.7.3)(rxjs@7.8.2)(typescript@5.8.3):
     dependencies:
       '@angular/cdk': 20.1.6(@angular/common@20.1.7(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2)
       '@angular/common': 20.1.7(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2)
