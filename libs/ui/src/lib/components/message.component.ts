@@ -10,14 +10,14 @@ import { MessageStore } from '@toh/state';
     @if (messages.length) {
       <h2 class="mt-0 mb-1 text-info">Messages</h2>
       <button
-        class="clear"
         class="btn btn-sm btn-warning"
         (click)="messageStore.clear()"
         type="button"
       >
         Clear messages
       </button>
-      <pre>@for (message of messages; track $index) { {{ message }}\n}</pre>
+      <pre>@for (message of messages; track $index) { {{ message }}
+}</pre>
     } @else {
       <h2 class="mt-0 mb-0">No messages</h2>
     }

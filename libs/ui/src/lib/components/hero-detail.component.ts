@@ -17,7 +17,7 @@ import { HeroesStore } from '../stores/heroes.store';
             class="input"
             id="hero-name"
             [value]="hero.name"
-            (keyup)="updateHeroName($event, hero.id)"
+            (input)="updateHeroName($event, hero.id)"
             placeholder="name"
         /></label>
       </div>
