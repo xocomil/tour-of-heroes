@@ -88,18 +88,20 @@ function updateHeroName(
   return (state) => {
     // TODO: add tests that check for nullish and ''
     // '' string should change, nullish values shouldn't
-    if (heroName == undefined || !heroId) {
+    // TODO: add tests to check for hero ID 0. This should be allowed
+    // hero IDs should not be negative
+    if (heroName == undefined || heroId <= 0) {
       return { heroes };
     }
 
-    const currentHero = heroes.findIndex((hero) => hero.id === heroId);
+    const currentHeroIndex = heroes.findIndex((hero) => hero.id === heroId);
 
-    if (currentHero === -1) {
+    if (currentHeroIndex === -1) {
       return { heroes };
     }
 
     return create(state, (draft) => {
-      draft.heroes[currentHero].name = heroName;
+      draft.heroes[currentHeroIndex].name = heroName.trim();
     });
   };
 }
