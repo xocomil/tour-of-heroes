@@ -1,19 +1,23 @@
 import { Component, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MessageStore } from '@toh/state';
-import { HeroesComponent, MessageComponent } from '@toh/ui';
+import { MessageComponent } from '@toh/ui';
 
 @Component({
-  imports: [RouterModule, HeroesComponent, MessageComponent],
+  imports: [RouterModule, MessageComponent],
   selector: 'app-root',
   providers: [MessageStore],
   template: `
     <h1 class="mb-0 mx-auto">Angular Tour of Heroes</h1>
-    <toh-heroes />
-    <toh-message />
+    <nav class="flex gap-4 flex-row">
+      <a routerLink="/">Home</a>
+      <a routerLink="/heroes">Heroes</a>
+    </nav>
     <router-outlet />
+    @defer {
+      <toh-message />
+    }
   `,
-  styleUrl: './app.component.css',
   host: {
     '[class]': 'hostTailwindClasses()',
   },
