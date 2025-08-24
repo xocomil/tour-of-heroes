@@ -90,7 +90,7 @@ function updateHeroName(
     // '' string should change, nullish values shouldn't
     // TODO: add tests to check for hero ID 0. This should be allowed
     // hero IDs should not be negative
-    if (heroName == undefined || heroId <= 0) {
+    if (heroName == undefined || heroId < 0) {
       return { heroes };
     }
 
