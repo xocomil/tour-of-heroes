@@ -5,7 +5,7 @@
   "scripts": {},
   "private": true,
   "dependencies": {
-    "@angular-architects/ngrx-toolkit": "20.1.0",
+    "@angular-architects/ngrx-toolkit": "20.7.0",
     "@angular/cdk": "20.2.0",
     "@angular/common": "20.2.1",
     "@angular/compiler": "20.2.1",
